@@ -78,6 +78,14 @@ $a1=array("a"=>"red","b"=>"green","c"=>"blue","d"=>"yellow");
 $result=array_flip($a1);
 print_r($result);
 
+//array_map
+function myfunction($v)
+{
+  return($v*$v);
+}
+
+$a=array(1,2,3,4,5);
+print_r(array_map("myfunction",$a));
 
 //array_merge
 $a1=array("red","green");
@@ -85,12 +93,12 @@ $a2=array("blue","yellow");
 print_r(array_merge($a1,$a2));
 
 //array_reduce
-function myfunction1($v1,$v2)
+function myfunction($v1,$v2)
 {
   return $v1 . "-" . $v2;
 }
 $a=array("Dog","Cat","Horse");
-print_r(array_reduce($a,"myfunction1"));
+print_r(array_reduce($a,"myfunction"));
 
 //array_replace
 $a1=array("red","green");
