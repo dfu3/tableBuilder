@@ -1,0 +1,73 @@
+<?php
+
+echo "IF STATEMENTS: <br>";
+
+$i = 1;
+while($i <= 4)
+  {
+    if(isset($_GET[$i])) {echo "input".$i." is set<br>";}
+    else {echo "input".$i." is not set<br>";}
+
+    if(empty($_GET[$i])) {echo "input".$i." is empty<br>";}
+    else {echo "input".$i." is not empty<br>";}
+
+    if(is_null($_GET[$i])) {echo "input".$i." is null<br>";}
+    else {echo "input".$i." is not null<br>";}
+    
+    $i++;
+
+  }
+
+echo "<br><br>SWITCH STATEMENTS:<br>";
+
+while($i <= 8)
+  {
+
+    switch (isset($_GET[$i]))
+      {
+      case true:
+	echo "input".$i." is set<br>";
+	break;
+      case false:
+	echo "input".$i." is not set<br>";
+	break;
+      
+      }
+    
+    switch (isset($_GET[$i]))
+      {
+      case true:
+	echo "input".$i." is set<br>";
+	break;
+      case false:
+	echo "input".$i." is not set<br>";
+	break;
+      
+      }
+
+    switch (empty($_GET[$i]))
+      {
+      case true:
+	echo "input".$i." is empty<br>";
+	break;
+      case false:
+	echo "input".$i." is not empty<br>";
+	break;
+      
+      }
+    switch (is_null($_GET[$i]))
+      {
+      case true:
+	echo "input".$i." is null<br>";
+	break;
+      case false:
+	echo "input".$i." is not null<br>";
+	break;  
+      }
+
+    $i++;
+
+  }
+
+
+?>

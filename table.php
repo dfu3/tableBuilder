@@ -82,6 +82,6 @@ $_array = array(
 
 
 $obj = new Table();
-echo $obj->buildTable($array);
+echo $obj->buildTable($_array);
 
 ?>

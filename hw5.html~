@@ -1,0 +1,11 @@
+
+<form action="hw5.php">
+
+  Input test 1:<input type="text" name="1"> <br>
+  Input test 2:<input type="text" name="2"> <br>
+  Input test 3:<input type="text" name="3"> <br>
+  Input test 4:<input type="text" name="4"> <br>
+  <br>
+  <input type="submit">
+
+</form>
