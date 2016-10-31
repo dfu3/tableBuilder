@@ -1,6 +1,8 @@
 <?php
 
 //ARRAYS===>
+echo "ARRAYS";
+echo "<br>";
 
 //array_keys
 $a=array("Volvo"=>"XC90","BMW"=>"X5","Toyota"=>"Highlander");
@@ -57,32 +59,37 @@ $a1=array("a"=>"red","b"=>"green","c"=>"blue","d"=>"yellow");
 $a2=array("e"=>"red","f"=>"green","g"=>"blue");
 $result=array_diff($a1,$a2);
 print_r($result);
+echo "<br>";
 
 //array_intersect
 $a1=array("a"=>"red","b"=>"green","c"=>"blue","d"=>"yellow");
 $a2=array("e"=>"red","f"=>"green","g"=>"blue");
 $result=array_intersect($a1,$a2);
 print_r($result);
+echo "<br>";
 
 //array_filter
 function test_odd($var)
 {
   return($var & 1);
 }
+echo "<br>";
 
 $a1=array("a","b",2,3,4);
 print_r(array_filter($a1,"test_odd"));
+echo "<br>";
 
 //array_flip
 $a1=array("a"=>"red","b"=>"green","c"=>"blue","d"=>"yellow");
 $result=array_flip($a1);
 print_r($result);
-
+echo "<br>";
 
 //array_merge
 $a1=array("red","green");
 $a2=array("blue","yellow");
 print_r(array_merge($a1,$a2));
+echo "<br>";
 
 //array_reduce
 function myfunction1($v1,$v2)
@@ -91,17 +98,28 @@ function myfunction1($v1,$v2)
 }
 $a=array("Dog","Cat","Horse");
 print_r(array_reduce($a,"myfunction1"));
+echo "<br>";
 
 //array_replace
 $a1=array("red","green");
 $a2=array("blue","yellow");
 print_r(array_replace($a1,$a2));
-
+echo "<br>";
+echo "<br><br>";
 //STRINGS===>
+echo "STRINGS";
+echo "<br>";
+echo strlen("sdjnksjdv");
+//------------------------------------------------------------------->
+
+echo strip_tags("<h1> header one </h1>");
+//------------------------------------------------------------------->
+
+$count = count_chars("sadjbfs");
+echo $count;
+//------------------------------------------------------------------->
 
 $str = "A 'quote' is <b>bold</b>";
-
-// Outputs: A 'quote' is &lt;b&gt;bold&lt;/b&gt;
 echo htmlentities($str);
 //------------------------------------------------------------------->
 
