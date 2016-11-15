@@ -1,0 +1,53 @@
+<?php
+
+class ConnectDb
+{
+
+  private static $instance = null;
+  private $conn;
+
+  private $host = 'sql1.njit.edu';
+  private $user = 'dfu3';
+  private $pass = 'maynard6';
+  private $db = 'dfu3';
+
+  private function __construct() //est. connection to the DB
+  {
+    $this->$conn = new mysqli('sql1.njit.edu', 'dfu3', 'maynard6', 'dfu3');
+
+    if ($this->$conn->connect_error)
+      {
+        die("Connection failed: " . $this->conn->connect_error);
+      }
+
+  }
+
+  public static function getInstance()//get the persistent instance of the connection
+  {
+    if(!self::$instance)
+      {
+	self::$instance = new ConnectDb();
+      }
+
+    return self::$instance;
+  }
+
+  public function getConnection()//create initial connection
+  {
+    return $this->conn;
+  }
+}
+
+$instance = ConnectDb::getInstance();
+$conn = $instance->getConnection();
+$q = "select customerName, contactFirstName, contactLastName, creditLimit from customers limit 10";
+
+
+foreach($conn->query($q) as $row)
+  {
+    echo $row;
+  }
+
+$conn->close();
+
+?>

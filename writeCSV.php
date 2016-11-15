@@ -18,7 +18,7 @@ class WriteCSV
     }
     else
     {
-      $this->fileCont = fopen($this->fileLoc, 'a');
+      $this->fileCont = fopen($this->fileLoc, 'w');
       echo "Opend file sucessfully <br>";
     }
   }
@@ -39,6 +39,7 @@ class WriteCSV
 }
 
 $test = new WriteCSV("test.csv");
-$test->write("1, Test, Testerson".PHP_EOL); 
+$line = array("1", "Test", "Testerson");
+$test->write($line); 
 
 ?>
