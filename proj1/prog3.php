@@ -57,8 +57,8 @@ class Customer
   function setLast($last) { $this->custLast = $last; }
 
   function setLimit($limit) { $this->credLimit = $limit; }
-
-  function getLimit() { return floatval($this->credLimit); }
+  
+  function getLimit() { return $this->credLimit; }
 
   function profile()
   {
@@ -98,12 +98,6 @@ class CustomerList
   {
     $this->custCount = $newCount;
   }
-  
-  public function getAll()
-  {
-    return $this->customers;
-  }
-  
   public function getCust($numToGet) 
   {
     if ( (is_numeric($numToGet)) && ($numToGet <= $this->getCustCount() ) ) 
@@ -120,57 +114,49 @@ class CustomerList
   }
 }
 
-
-//observer
-class CheckLimit //this class checks all the customer objs and sorts them into different collections depending on their current credit limit
+interface Notifier
 {
-  private $goodStanding;
-  private $watchList;
-  private $badStanding;
-
-  public function __construct()
-  {
-    $this->goodStanding = new CustomerList();
-    $this->watchList = new CustomerList();
-    $this->badStanding = new CustomerList();
-  }
-
-  public function addCollection(CustomerList $coll)
-  {
-    foreach($coll->getAll() as $cust)
-      {
-	$this->filter($cust);
-      }
-  }
-
-  public function addSingle(Customer $cust)
-  {
-    $this->filter($cust);
-  }
-
-  private function filter(Customer $cust)
-  {
-    if($cust->getLimit() > 100000)
-      {	
-	$this->goodStanding->addCustomer($cust);
-      }
-    elseif($cust->getLimit() > 1000)
-      {
-	$this->watchList->addCustomer($cust);
-      }
-    else
-      {
-	$this->badStanding->addCustomer($cust);
-      }
-  }
-
-  public function getGood() { return $this->goodStanding; }
-  public function getWatch() { return $this->watchList; }
-  public function getbad() { return $this->badStanding; }
-
+  public function notify();
 }
 
-//---------
+class Email implements Notifier
+{
+  public function notify()
+  {
+    echo "credit limit email sent<br>";
+  }
+  
+}
+
+//decorator 
+abstract class NotifyDecorator
+{
+  protected $notifier;
+
+  public function __construct(Notifier $notifier)
+  {
+    $this->notifier = $notifier; 
+  }
+
+  abstract public function notify();
+}
+
+class Text extends NotifyDecorator
+{
+  public function notify()
+  {
+    echo "credit limit text sent<br>";
+  }
+}
+
+class Fax extends NotifyDecorator
+{
+  public function notify()
+  {
+    echo "credit limit fax sent<br>";
+  }
+}
+//--------------
 
 $instance = ConnectDb::getInstance();
 $conn = $instance->getConnection();
@@ -178,26 +164,28 @@ $q = "select customerName, contactFirstName, contactLastName, creditLimit from c
 
 $customers = new CustomerList();
 
+
+
+$email = new Email(); //original
+$text = new Text($email); //decorated 
+$fax = new Fax($email); //decorated
+
+
+
 foreach($conn->query($q) as $row) 
 {
   $temp = CustomerFactory::makeCustomer($row['customerName'], $row['contactFirstName'], $row['contactLastName'], $row['creditLimit'] );
   $customers->addCustomer($temp);
+
+  if(floatval($temp->getLimit()) < 500 )
+    {
+      echo $temp->getLimit() . "<hr>";
+      $email->notify();
+      $text->notify();
+      $fax->notify();
+    }
 }
 
-try{ 
-
-$limChecker = new CheckLimit(); 
-$limChecker->addCollection($customers);
-
-//echo gettype($limChecker->getBad()->getCust(10)->getLimit());
-//print_r($limChecker);
-echo "<h1> CREDIT LIMIT MONITERING </h1><hr>";
-echo "<h2>GOOD STANDING: " . $limChecker->getGood()->getCustCount() . "<br>";
-echo "WATCH LIST   : " . $limChecker->getWatch()->getCustCount() . "<br>";
-echo "BAD STANDING : " . $limChecker->getBad()->getCustCount() . "<br></h2>";
-
-}
-catch(Exception $e) { echo $e->getMesseage(); }
 
 $conn->close();
 

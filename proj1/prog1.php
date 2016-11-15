@@ -81,7 +81,6 @@ class CustomerFactory //creates customers given the content
   }
 }
 
-//Iterator - traverses over classes with lists
 class CustomerList 
 {
   private $customers = array();
@@ -113,6 +112,7 @@ class CustomerList
   }
 }
 
+//iterator
 class CustomerIterator 
 {
   protected $customers;
