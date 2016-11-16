@@ -4,7 +4,7 @@ class Sanitation
 {
   public static function genFields($raw)
   {
-    return filter_var($raw, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    return strip_tags($raw);
   }
   public static function numFields($raw)
   {
@@ -39,7 +39,6 @@ class Validation
   }
 
 }
-/*
 $name = $_GET['name'];
 $age = $_GET['age'];
 $email = $_GET['email'];
@@ -70,6 +69,6 @@ else
   {
     echo "email is NOT valid";
   }
-*/
+
 
 ?>
