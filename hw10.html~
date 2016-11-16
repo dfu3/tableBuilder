@@ -1,0 +1,10 @@
+
+
+NAME:<br>
+<input  name="name" > <br>
+
+AGE:<br>
+<input  name="age" > <br>
+
+EMAIL:<br>
+<input  name="email" > <br>
