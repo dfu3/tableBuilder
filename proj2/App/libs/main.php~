@@ -1,0 +1,35 @@
+
+
+
+
+
+
+
+//Table
+$array = array(
+               array('First Name'=>'Tom', 'Last Name'=>'Riddle', 'Email'=>'tom@gmail.com'),
+               array('First Name'=>'Rob', 'Last Name'=>'Zombie', 'Email'=>'rob@gmail.com'),
+               array('First Name'=>'Bob', 'Last Name'=>'Dylan', 'Email'=>'bob@gmail.com')
+               );
+
+$obj = new Table();
+echo $obj->buildTable($array);
+//---
+
+//ReadCSV
+$reader = new ReadCSV();
+$reader->read("test.csv"); 
+//---
+
+//CURL
+$curlOBJ = new Curl();
+
+$params = array(
+                "name" => "Ravishanker Kusuma",
+                "age" => "32",
+                "location" => "India"
+                );
+
+echo "POST example: " . $curlOBJ->post("http://hayageek.com/examples/php/curl-examples/post.php",$params) . "<hr>";
+echo "GET example: " . $curlOBJ->get("http://hayageek.com");
+//---
