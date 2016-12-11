@@ -1,0 +1,15 @@
+<?php
+
+include_once("../model/Model.php");
+$mod = new Model();
+
+$newName = $_GET['edit'];
+$pass = $_GET['pass'];
+
+if($newName !== NULL)
+  {
+    $mod->editAccount($newName, $pass);
+  }
+
+header('Location: ../index.php');
+?>
