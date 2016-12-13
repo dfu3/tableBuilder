@@ -1,11 +1,12 @@
 <?php
 
 include_once("../model/Model.php");
+include_once("../model/Sanitation.php");
 
-//TODO sanit / valid below fields
 $user = Sanitation::genFields($_GET['user']);
 $pass = Sanitation::genFields($_GET['pass']);
-$name = Sanitation::genFields($_GET['name'];
+$name = Sanitation::genFields($_GET['name']);
+
 
 $mod = new Model();
 

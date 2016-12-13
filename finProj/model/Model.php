@@ -25,6 +25,27 @@ class Model {
 
   }
 
+  public function getImg()
+  {
+    $user = Sanitation::genFields($_REQUEST['username']);
+    
+    try{
+      $db = dbConn::getConnection();
+      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      
+      
+      $state = $db->prepare("select photo from account where user=:user");
+      $state->bindParam(':user', $user);
+     
+
+      $state->execute();
+    }
+    catch(Exception $e) { return 'DB_FAIL_' . $e; }
+    
+    $photo = $state->fetchAll()[0][0];
+    return $photo;
+  }
+
   public function getAccount()
   {
     $user = Sanitation::genFields($_REQUEST['username']);
@@ -34,14 +55,14 @@ class Model {
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       
       if($user == 'admin')
-	{
-	  $state = $db->prepare("select name, user, pass from account");
-	}
-      else
-	{
-	  $state = $db->prepare("select name, user, pass from account where user=:user");
+	    {
+	       $state = $db->prepare("select name, user, pass from account");
+	     }
+    else
+	   {  
+	     $state = $db->prepare("select name, user, pass from account where user=:user");
           $state->bindParam(':user', $user);
-	}
+	   }
 
       $state->execute();
     }

@@ -7,7 +7,7 @@
  //echo $result;
 
 ?>
-<form action="" method="POST">
+<form action="" method="POST" autocomplete="off">
   <p>
    <label>Username</label>
    <input id="username" value="" name="username" type="text" required="required" /><br>
