@@ -1,8 +1,16 @@
 <?php
 
-include_once("dbConn.php");
-include_once("Table.php");
-include_once("Sanitation.php");
+  //include_once("dbConn.php");
+  //include_once("Table.php");
+  //include_once("Sanitation.php");
+
+function myLoad($className) 
+{
+  $filename = $className . ".php";
+  include $filename;  
+  return true;
+}
+spl_autoload_register('myLoad');
 
 class Model {
 
